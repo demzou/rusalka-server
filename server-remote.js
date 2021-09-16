@@ -1,10 +1,12 @@
 /*
  * Config
  */
+//const cors = require ('cors');
 const express = require('express');   //Dependencies
 const app = express();
-const port = process.env.PORT || 3000;
+ const port = process.env.PORT || 3000;
 app.use(express.static(`${__dirname}/public`));
+//app.use(cors());
 
 
 /*
@@ -14,12 +16,13 @@ app.use(express.static(`${__dirname}/public`));
 //-- HTTP
 const http = require("http");         //Dependencies
 const server = http.createServer(app);
+
+//const server = require("http").createServer();
 server.listen(port);
 
 
 // Setup sockets with the HTTP server
-// const socketio = require('socket.io');
-// let io = socketio.listen(server);
+let io = require('socket.io')(server);
 
 // const io = require("socket.io")(server, {
 //     cors: {
@@ -37,18 +40,31 @@ server.listen(port);
 //       });
 
 
-const io = require("socket.io")(server, {
-    handlePreflightRequest: (req, res) => {
-        const headers = {
-            "Access-Control-Allow-Headers": "Content-Type, Authorization",
-            "Access-Control-Allow-Origin": req.headers.origin, //or the specific origin you want to give access to,
-            "Access-Control-Allow-Credentials": true
-        };
-        res.writeHead(200, headers);
-        res.end();
-    }
-});
+// const io = require("socket.io")(server, {
+//     handlePreflightRequest: (req, res) => {
+//         const headers = {
+//             "Access-Control-Allow-Headers": "Content-Type, Authorization",
+//             "Access-Control-Allow-Origin": req.headers.origin, //or the specific origin you want to give access to,
+//             "Access-Control-Allow-Credentials": true
+//         };
+//         res.writeHead(200, headers);
+//         res.end();
+//     }
+// });
 
+// const io = require("socket.io")(server, {
+//     cors: {
+//       origin: "http://127.0.0.1:8887/",
+//       methods: ["GET", "POST"]
+//     }
+//   });
+
+//   const io = require("socket.io")(server, {
+//     allowRequest: (req, callback) => {
+//       const noOriginHeader = req.headers.origin === undefined;
+//       callback(null, noOriginHeader);
+//     }
+//   });
 
 
 console.log(`Listening for socket connections on port ${port}`);
