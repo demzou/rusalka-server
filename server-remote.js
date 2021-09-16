@@ -21,14 +21,34 @@ server.listen(port);
 // const socketio = require('socket.io');
 // let io = socketio.listen(server);
 
+// const io = require("socket.io")(server, {
+//     cors: {
+//       origin: "http://192.168.0.73",
+//       methods: ["GET", "POST"],
+//       allowedHeaders: ["Rusalka-data-stream"],
+//       credentials: true
+//     }
+//   });
+
+// const io = require("socket.io")(server, {
+//         cors: {
+//           origin: "*"
+//         }
+//       });
+
+
 const io = require("socket.io")(server, {
-    cors: {
-      origin: "http://192.168.0.73",
-      methods: ["GET", "POST"],
-      allowedHeaders: ["Rusalka-data-stream"],
-      credentials: true
+    handlePreflightRequest: (req, res) => {
+        const headers = {
+            "Access-Control-Allow-Headers": "Content-Type, Authorization",
+            "Access-Control-Allow-Origin": req.headers.origin, //or the specific origin you want to give access to,
+            "Access-Control-Allow-Credentials": true
+        };
+        res.writeHead(200, headers);
+        res.end();
     }
-  });
+});
+
 
 
 console.log(`Listening for socket connections on port ${port}`);
