@@ -18,8 +18,19 @@ server.listen(port);
 
 
 // Setup sockets with the HTTP server
-const socketio = require('socket.io');
-let io = socketio.listen(server);
+// const socketio = require('socket.io');
+// let io = socketio.listen(server);
+
+const io = require("socket.io")(server, {
+    cors: {
+      origin: "https://rusalka.herokuapp.com",
+      methods: ["GET", "POST"],
+      allowedHeaders: ["Rusalka-data-stream"],
+      credentials: true
+    }
+  });
+
+
 console.log(`Listening for socket connections on port ${port}`);
 
 
