@@ -23,7 +23,7 @@ server.listen(port);
 
 const io = require("socket.io")(server, {
     cors: {
-      origin: "http://127.0.0.1:8887",
+      origin: "http://192.168.0.73",
       methods: ["GET", "POST"],
       allowedHeaders: ["Rusalka-data-stream"],
       credentials: true
