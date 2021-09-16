@@ -1,6 +1,6 @@
 {
     "scripts": {
-        "start": "node server.js"
+        "start": "node server-remote.js"
     },
     "engines": {
         "node": "8.x"
