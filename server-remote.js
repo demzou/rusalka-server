@@ -39,13 +39,20 @@ io.sockets.on('connection',
     console.log("New client: " + socket.id);
 
 
-    //----------> Manage button clicks
+    //----------
     socket.on('bvh',
     function(data) {
         //console.log(data);
         io.sockets.emit('bvh', data);
       }
     );
+
+    socket.on('clemPos',
+    function(data) {
+        io.sockets.emit('position', data);
+      }
+    );
+
     //----------
       
     
