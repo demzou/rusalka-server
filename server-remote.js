@@ -55,6 +55,7 @@ io.sockets.on('connection',
 
     socket.on('mode',
     function(data) {
+      console.log(data);
         io.sockets.emit('newMode', data);
       }
     );
