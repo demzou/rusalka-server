@@ -53,6 +53,12 @@ io.sockets.on('connection',
       }
     );
 
+    socket.on('mode',
+    function(data) {
+        io.sockets.emit('mode', data);
+      }
+    );
+
     //----------
       
     
