@@ -49,6 +49,18 @@ io.sockets.on('connection',
       }
     );
 
+    socket.on('load',
+    function(data) {
+        io.sockets.emit('load', data);
+      }
+    );
+
+    socket.on('destroy',
+    function(data) {
+        io.sockets.emit('destroy', data);
+      }
+    );
+
     socket.on('clemPos',
     function(data) {
         io.sockets.emit('position', data);
