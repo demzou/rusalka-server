@@ -27,8 +27,8 @@ let io = require('socket.io')(server);
 
 console.log(`Listening for socket connections on port ${port}`);
 
-let count = 0;
-let sum = 0;
+
+let playersDist = [];
 
 //-------------------------------------
 // Register a callback function to run when we have an individual connection
@@ -63,18 +63,18 @@ io.sockets.on('connection',
 
     socket.on('playerPos',
     function(data) {
-      if (data < 10) {
-        sum += data;
-        count++;
-      }
 
-      if (count > 30) {
-        let avg = sum / count;
-        io.sockets.emit('distance', avg);
-        sum = 0;
-        count = 0;
+      if (data < 10) {
+        playersDist.unshift(data);
+        if (playersDist.length > 20) {
+          playersDist.pop();
+
+          const sum = playersDist.reduce((a, b) => a + b, 0);
+          const avg = (sum / playersDist.length);
+
+          io.sockets.emit('distance', avg);
+        }
       }
-        
       }
     );
 
