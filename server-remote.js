@@ -29,6 +29,8 @@ console.log(`Listening for socket connections on port ${port}`);
 
 
 let playersDist = [];
+let elementsToBeLoaded = false;
+let mode = 0;
 
 //-------------------------------------
 // Register a callback function to run when we have an individual connection
@@ -39,7 +41,8 @@ io.sockets.on('connection',
 
     // Print message to the console indicating that a new client has connected
     console.log("New client: " + socket.id);
-
+    if(elementsToBeLoaded == true) io.to(socket.id).emit('load', true);
+    io.to(socket.id).emit('newMode', mode);
 
     //----------
     socket.on('bvh',
@@ -51,12 +54,14 @@ io.sockets.on('connection',
 
     socket.on('load',
     function(data) {
+        elementsToBeLoaded = true;
         io.sockets.emit('load', data);
       }
     );
 
     socket.on('destroy',
     function(data) {
+        elementsToBeLoaded = false;
         io.sockets.emit('destroy', data);
       }
     );
@@ -69,6 +74,7 @@ io.sockets.on('connection',
 
     socket.on('mode',
     function(data) {
+        mode = data;
         io.sockets.emit('newMode', data);
       }
     );
