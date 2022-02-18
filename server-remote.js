@@ -101,6 +101,7 @@ io.sockets.on('connection',
     function(data) {
         mode = data;
         io.sockets.emit('newMode', data);
+        io.sockets.emit('mode', data);
       }
     );
 
