@@ -43,6 +43,7 @@ io.sockets.on('connection',
     console.log("New client: " + socket.id);
     if(elementsToBeLoaded == true) io.to(socket.id).emit('load', true);
     io.to(socket.id).emit('newMode', mode);
+    io.to(socket.id).emit('mode', mode);
 
     //----------
     socket.on('bvh',
