@@ -52,6 +52,20 @@ io.sockets.on('connection',
       }
     );
 
+    socket.on('bvhA',
+    function(data) {
+        //console.log(data);
+        io.sockets.emit('bvhA', data);
+      }
+    );
+
+    socket.on('bvhB',
+    function(data) {
+        //console.log(data);
+        io.sockets.emit('bvhB', data);
+      }
+    );
+
     socket.on('load',
     function(data) {
         elementsToBeLoaded = true;
