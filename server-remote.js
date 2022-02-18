@@ -86,6 +86,17 @@ io.sockets.on('connection',
       }
     );
 
+    socket.on('posA',
+    function(data) {
+        io.sockets.emit('posA', data);
+      }
+    );
+    socket.on('posB',
+    function(data) {
+        io.sockets.emit('posB', data);
+      }
+    );
+
     socket.on('mode',
     function(data) {
         mode = data;
